@@ -47,7 +47,6 @@ const config = {
   resolve: {
     extensions: [".ts", ".js"],
   },
-  externals: { "node:crypto": "crypto" },
   plugins: [
     ...environmentPlugin,
     new CleanWebpackPlugin()

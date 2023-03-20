@@ -19,9 +19,11 @@ interface CustomRequest extends Request {
   };
 }
 
+const cache = new Map();
+
 async function handleRequest(request: CustomRequest, args: Args) {
   const method = request.method;
-  const remoteAddr = request?.metadata["remoteAddr"];
+  const remoteAddr = request?.metadata["remote_addr"];
 
   const pathname = new URL(request.url).pathname;
 
@@ -57,6 +59,7 @@ async function handleRequest(request: CustomRequest, args: Args) {
     {
       limit: args?.UPSTASH_LIMIT,
       window: args?.UPSTASH_LIMIT_WINDOW,
+      cache: cache,
       identifier: remoteAddr // ip origin
     },
     {
