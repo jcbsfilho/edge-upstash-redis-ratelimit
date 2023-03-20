@@ -1,0 +1,61 @@
+name: Main Edge Deploy
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - 'main'
+
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Test
+        run: yarn test  
+
+      - name: Build Code
+        run: yarn build
+
+      - name: Create args file
+        # "create the arguments at runtime because of the secrets"
+        run: |
+          cat > ./azion/args.json << EOF
+            {
+              "UPSTASH_REDIS_REST_URL": "${{ secrets.UPSTASH_REDIS_REST_URL }}",
+              "UPSTASH_REDIS_REST_TOKEN": "${{ secrets.UPSTASH_REDIS_REST_TOKEN }}"
+            }
+          EOF
+
+      - name: edge-computing-deploy
+        id: azion_edge
+        uses: jcbsfilho/edge-computing-deploy@v1.0.1
+        with:
+          personalToken: ${{ secrets.AZION_PERSONAL_TOKEN }}
+          folder: "./dist"
+
+      - name: Get the output Azion Edge Deploy
+        run: echo "Result ${{ steps.azion_edge.outputs.message }}"
+        
+
+      - name: Commit files config
+        # change may be required if your main branch is protected
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add ./azion/azion.json
+          git commit -m "[bot] Automated config" || echo 'no changes commit'
+          git push || echo 'no changes to push'
