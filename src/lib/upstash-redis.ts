@@ -1,6 +1,7 @@
 import { Redis, RedisConfigNodejs } from "@upstash/redis/nodejs";
 import { Ratelimit } from "@upstash/ratelimit";
-import { randomUUID } from "node:crypto"
+import { randomUUID } from "node:crypto";
+
 
 const cache = new Map();
 
