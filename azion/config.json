@@ -1,0 +1,7 @@
+{
+    "init": {
+        "cmd": "yarn add -D clean-webpack-plugin --yes && yarn add -D webpack-cli@^5.0.1 --yes",
+        "env": "./azion/webdev.env",
+        "output-ctrl": "on-error"
+    }
+}

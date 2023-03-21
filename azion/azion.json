@@ -1,0 +1,22 @@
+{
+  "name": "edge-upstash-redis-ratelimit",
+  "type": "javascript",
+  "env": "production",
+  "function": {
+    "id": 0,
+    "name": "__DEFAULT__",
+    "file": "./worker/main.js",
+    "args": "./azion/args.json"
+  },
+  "application": {
+    "id": 0,
+    "name": "__DEFAULT__"
+  },
+  "domain": {
+    "id": 0,
+    "name": "__DEFAULT__"
+  },
+  "rt-purge": {
+    "purge_on_publish": true
+  }
+}
