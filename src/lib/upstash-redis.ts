@@ -26,8 +26,8 @@ export async function redisRateLimit(limitConfig: LimitConfig, config: RedisConf
   try {
     const redis = new Redis(config);
 
-    const limit = limitConfig?.limit || 10;
-    const window = limitConfig?.window || "10 s";
+    const limit = limitConfig?.limit || 3;
+    const window = limitConfig?.window || "30 s";
     const identifier = limitConfig?.identifier || "user unique id";
 
     const ratelimit = new Ratelimit({
