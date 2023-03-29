@@ -41,6 +41,10 @@ Enter the information in the settings tab:
 
 `Azion Personal Token` *Azion Personal Token*
 
+`Limit Request` *Maximum number of requests*
+
+`Window Limit` *time window for new requests*
+
 
 ----------
 
@@ -53,8 +57,8 @@ Add the Redis Database access credentials to the secrets
 ```bash
 UPSTASH_REDIS_REST_URL=<>
 UPSTASH_REDIS_REST_TOKEN=<>
-UPSTASH_LIMIT=<>
-UPSTASH_LIMIT_WINDOW=<>
+UPSTASH_LIMIT=6
+UPSTASH_LIMIT_WINDOW=10 s
 
 ```
 
