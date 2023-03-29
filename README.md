@@ -58,6 +58,8 @@ UPSTASH_LIMIT_WINDOW=<>
 
 ```
 
+Create [Personal Token](https://manager.azion.com/iam/personal-tokens)
+
 Azion Personal token
 ```bash
 AZION_PERSONAL_TOKEN=<>
@@ -66,3 +68,11 @@ AZION_PERSONAL_TOKEN=<>
 *Create the Pull Request for automatic deployment*
 
 Create a pull request to the main branch to automatically deploy.
+
+**Important**
+
+Please enable permissions for the action to automate the update of the azion.json file.
+[Config Actions](https://github.com/jcbsfilho/azion-sample-application/settings/actions)
+
+
+https://docs.github.com/en/actions/security-guides/automatic-token-authentication#modifying-the-permissions-for-the-github_token
