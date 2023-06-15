@@ -1,6 +1,6 @@
 # Template Edge Application with Azion and Upstash Redis RateLimit
 
-## Getting Started with Azion and Upstash Redis RateLimit
+## RateLimit
 
 Rate limiting is a standard solution to many of these problems and should work out of the box.
 
