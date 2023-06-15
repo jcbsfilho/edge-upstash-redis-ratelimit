@@ -59,9 +59,10 @@ Enter the information in the settings tab:
 - `Edge Function args`: `JSON` args required for build and connection to redis database: 
     - Example:
     `{ UPSTASH_REDIS_REST_URL: "", UPSTASH_REDIS_REST_TOKEN: "", UPSTASH_LIMIT: 5, UPSTASH_LIMIT_WINDOW: "10 s" }`
+    - `Limit Request`: maximum number of requests. ex. 3
+    - `Window Limit`: time window for new requests. ex. 1 "ms" | "s" | "m" | "h" | "d";
 - `Github Personal Token`: Github Personal Token.
-- `Limit Request`: maximum number of requests. ex. 3
-- `Window Limit`: time window for new requests. ex. 1 "ms" | "s" | "m" | "h" | "d";
+
 
 ---
 
