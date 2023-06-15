@@ -11,9 +11,6 @@ export type LimitConfig = {
   cache: Map<string, number>;
 };
 
-export interface MethodRouterRedis {
-  [x: string]: (limitConfig: LimitConfig, config: RedisConfigNodejs) => Promise<ResultProps>;
-}
 
 export interface RedisConfig extends RedisConfigNodejs {}
 

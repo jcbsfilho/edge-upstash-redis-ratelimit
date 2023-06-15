@@ -2,14 +2,11 @@
   "name": "edge-upstash-redis-ratelimit",
   "version": "1.0.0",
   "description": "Template Edge Application with Azion and Upstash Redis Ratelimit",
-  "main": "index.js",
+  "main": "worker/function.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --no-notify src/index.ts",
-    "test": "jest --maxWorkers=1",
-    "build": "webpack --mode=production --node-env=production",
-    "build:dev": "webpack --mode=development",
-    "watch": "webpack --watch",
-    "serve": "webpack serve"
+    "dev": "esbuild src/index.ts --bundle --outfile=worker/function.js --watch",
+    "build": "node build.config.mjs",
+    "test": "jest --maxWorkers=1"
   },
   "keywords": [
     "edge",
@@ -22,24 +19,15 @@
   "author": "jcbsfilho",
   "license": "MIT",
   "devDependencies": {
-    "@types/axios": "^0.14.0",
     "@types/jest": "^29.2.4",
-    "@types/node": "^18.15.3",
+    "@types/node": "^18.11.17",
     "@types/node-fetch": "^2.6.2",
-    "@webpack-cli/generators": "^3.0.1",
-    "clean-webpack-plugin": "^4.0.0",
-    "dotenv": "^16.0.3",
+    "esbuild": "^0.17.19",
     "jest": "^29.3.1",
     "prettier": "^2.8.1",
     "ts-jest": "^29.0.3",
-    "ts-loader": "^9.4.2",
     "ts-node": "^10.9.1",
-    "ts-node-dev": "^1.1.8",
-    "typescript": "^4.9.4",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.4.3",
-    "webpack-node-externals": "^3.0.0"
+    "typescript": "^4.9.4"
   },
   "dependencies": {
     "@upstash/ratelimit": "^0.4.0",

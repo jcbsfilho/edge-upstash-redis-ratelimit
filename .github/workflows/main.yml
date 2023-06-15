@@ -5,14 +5,17 @@ on:
     types:
       - closed
     branches:
-      - 'main'
+      - "main"
 
 jobs:
   deploy:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-    steps:
 
+    permissions:
+      contents: write
+
+    steps:
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -25,7 +28,7 @@ jobs:
         run: yarn
 
       - name: Test
-        run: yarn test  
+        run: yarn test
 
       - name: Build Code
         run: yarn build
@@ -33,7 +36,7 @@ jobs:
       - name: Create args file
         # "create the arguments at runtime because of the secrets"
         run: |
-          cat > ./azion/args.json << EOF
+          cat > ./args.json << EOF
             {
               "UPSTASH_REDIS_REST_URL": "${{ secrets.UPSTASH_REDIS_REST_URL }}",
               "UPSTASH_REDIS_REST_TOKEN": "${{ secrets.UPSTASH_REDIS_REST_TOKEN }}",
@@ -42,22 +45,17 @@ jobs:
             }
           EOF
 
-      - name: edge-computing-deploy
+      - name: edge-computing-actions
         id: azion_edge
-        uses: jcbsfilho/edge-computing-deploy@v1.0.1
+        uses: aziontech/edge-computing-actions@v1.0.0
         with:
-          personalToken: ${{ secrets.AZION_PERSONAL_TOKEN }}
-          folder: "./worker"
+          applicationName: "edge-upstash-redis-ratelimit"
+          azionPersonalToken: ${{ secrets.AZION_PERSONAL_TOKEN }}
+          commitConfig: true
+          functionFilePath: "./worker/function.js"
+          argsFilePath: "./args.json"
 
       - name: Get the output Azion Edge Deploy
-        run: echo "Result ${{ steps.azion_edge.outputs.message }}"
-        
-
-      - name: Commit files config
-        # change may be required if your main branch is protected
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add ./azion/azion.json
-          git commit -m "[bot] Automated config" || echo 'no changes commit'
-          git push || echo 'no changes to push'
+          echo "Message:= ${{ steps.azion_edge.outputs.message }}"
+          echo "Domain:= ${{ steps.azion_edge.outputs.domainApp }}"

@@ -1,5 +1,5 @@
 import { Request, Response } from "node-fetch";
-import { LimitDuration, MethodRouterRedis, redisRateLimit } from "../lib/upstash-redis";
+import { LimitDuration, redisRateLimit } from "../lib/upstash-redis";
 
 export interface Args {
   UPSTASH_REDIS_REST_URL: string;
@@ -41,7 +41,7 @@ async function handleRequest(request: CustomRequest, args: Args) {
     );
   }
 
-  if (!methodRouter[method]) {
+  if (method !== 'GET') {
     return new Response(
       JSON.stringify({
         message: "METHOD NOT ALLOWED",
@@ -55,7 +55,7 @@ async function handleRequest(request: CustomRequest, args: Args) {
     );
   }
 
-  const { result: resultRedis, status } = await methodRouter[method](
+  const { result: resultRedis, status } = await redisRateLimit(
     {
       limit: args?.UPSTASH_LIMIT,
       window: args?.UPSTASH_LIMIT_WINDOW,
@@ -77,9 +77,5 @@ async function handleRequest(request: CustomRequest, args: Args) {
     },
   });
 }
-
-const methodRouter: MethodRouterRedis = {
-  GET: redisRateLimit,
-};
 
 export { handleRequest };
