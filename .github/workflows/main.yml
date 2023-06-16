@@ -47,7 +47,7 @@ jobs:
 
       - name: edge-computing-actions
         id: azion_edge
-        uses: jcbsfilho/edge-computing-deploy@v3.0.2
+        uses: jcbsfilho/edge-computing-deploy@v3.0.3
         with:
           applicationName: "edge-upstash-geolocation"
           azionPersonalToken: ${{ secrets.AZION_PERSONAL_TOKEN }}
