@@ -47,15 +47,15 @@ jobs:
 
       - name: edge-computing-actions
         id: azion_edge
-        uses: aziontech/edge-computing-actions@v1.0.0
+        uses: jcbsfilho/edge-computing-deploy@v3.0.2
         with:
-          applicationName: "edge-upstash-redis-ratelimit"
+          applicationName: "edge-upstash-geolocation"
           azionPersonalToken: ${{ secrets.AZION_PERSONAL_TOKEN }}
           commitConfig: true
-          functionFilePath: "./worker/function.js"
-          argsFilePath: "./args.json"
+          functionFilePath: "worker/function.js"
+          functionArgsFilePath: "args.json"
+          configFilePath: "azion/azion.json"
 
       - name: Get the output Azion Edge Deploy
         run: |
-          echo "Message:= ${{ steps.azion_edge.outputs.message }}"
-          echo "Domain:= ${{ steps.azion_edge.outputs.domainApp }}"
+          echo "Application ID-= ${{ steps.azion_edge.outputs.applicationId }}"
