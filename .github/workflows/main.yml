@@ -47,7 +47,7 @@ jobs:
 
       - name: edge-computing-actions
         id: azion_edge
-        uses: jcbsfilho/edge-computing-deploy@v3.0.4
+        uses: jcbsfilho/edge-computing-deploy@v3.1.0
         with:
           azionPersonalToken: ${{ secrets.AZION_PERSONAL_TOKEN }}
           commitConfig: true
