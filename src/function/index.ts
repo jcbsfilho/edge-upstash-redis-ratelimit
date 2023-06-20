@@ -4,8 +4,8 @@ import { LimitDuration, redisRateLimit } from "../lib/upstash-redis";
 export interface Args {
   UPSTASH_REDIS_REST_URL: string;
   UPSTASH_REDIS_REST_TOKEN: string;
-  UPSTASH_LIMIT: string
-  UPSTASH_LIMIT_WINDOW: LimitDuration
+  UPSTASH_LIMIT: number;
+  UPSTASH_LIMIT_WINDOW: LimitDuration;
 }
 
 /**
